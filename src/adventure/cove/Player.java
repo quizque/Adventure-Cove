@@ -63,10 +63,17 @@ public class Player {
         System.out.println(pos_x + " " + pos_y);
         
         if ("TOWN_OUTSIDE" == location)
-            if (pos_x >= 21 && pos_x <= 30 && pos_y == 0)
+            if (pos_x == 14 && pos_y == 10)
             {
-                System.out.println("help");
                 location = "TOWN_INSIDE";
+                return "CHANGE_LOCATION";
+            }
+        
+        // TOWN_INSIDE
+        if ("TOWN_INSIDE" == location)
+            if (pos_x >= 17 && pos_x <= 19 && pos_y == 7)
+            {
+                location = "TOWN_OUTSIDE";
                 return "CHANGE_LOCATION";
             }
         
@@ -75,23 +82,20 @@ public class Player {
         /// CHECK FOR WALL
         ///
         
-        char[] collArr = {'#', '/', '-', '\\', '|'};
+        char[] collArr = {'#', '/', '-', '\\', '|', '_'};
         
-//        if (map.world[pos_x][pos_y] != ' ')
-//        {
-//            for (char coll : collArr)
-//                if (map.world[pos_x][pos_y] == coll)
-//                {
-//                    pos_x = prev_x;
-//                    pos_y = prev_y;
-//                }
-//        } else {
-//            map.world[pos_x][pos_y] = '@';
-//            map.world[prev_x][prev_y] = ' ';
-//        }
-        
-        map.world[pos_x][pos_y] = '@';
+        if (map.world[pos_x][pos_y] != ' ')
+        {
+            for (char coll : collArr)
+                if (map.world[pos_x][pos_y] == coll)
+                {
+                    pos_x = prev_x;
+                    pos_y = prev_y;
+                }
+        } else {
+            map.world[pos_x][pos_y] = '@';
             map.world[prev_x][prev_y] = ' ';
+        }
 
         return "";
     }

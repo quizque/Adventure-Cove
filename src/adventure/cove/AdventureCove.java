@@ -29,11 +29,11 @@ public class AdventureCove {
         World TOWN_OUTSIDE = new World("#####################          #####################\n" +
                                        "#                                                  #\n" +
                                        "#                                                  #\n" +
-                                       "#      /|--------|\\              /|¯¯¯¯¯¯¯¯|\\      #\n" +
+                                       "#      /|--------|\\              /|--------|\\      #\n" +
                                        "#     | |        | |            | |        | |     #\n" +
                                        "#     | |        | |            | |        | |     #\n" +
-                                       "#     | |--------| |            | |________| |     #\n" +
-                                       "#     |/----------\\|            |/__________\\|     #\n" +
+                                       "#     | |--------| |            | |--------| |     #\n" +
+                                       "#     |/----------\\|            |/----------\\|     #\n" +
                                        "#     |  _         |            |  _         |     #\n" +
                                        "#     | | |  |¯|   |            | | |  |¯|   |     #\n" +
                                        "#     |------|-|---|            |------|-|---|     #\n" +
@@ -43,24 +43,55 @@ public class AdventureCove {
                                        "#                                                  #\n" +
                                        "####################################################\n");
         
-        Player player = new Player(1, 1, 100, 50, "TOWN_INSIDE", TOWN_INSIDE);
+        World ROUTE_1 = new World("######     ##############################\n" +
+                                  "#              wwwwwwwwwwwwwwwwwwwwwwwww#\n" +
+                                  "#                                       #\n" +
+                                  "#wwwwwwwwwwwwwwwww                      #\n" +
+                                  "############################        #####\n" +
+                                  "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#\n" +
+                                  "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#\n" +
+                                  "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#\n" +
+                                  "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#\n" +
+                                  "###      ################################\n" +
+                                  "#                                       #\n" +
+                                  "#           www           wwwww         #\n" +
+                                  "#                        wwwwwwww       #\n" +
+                                  "#   wwwww                   wwww        #\n" +
+                                  "#   wwwwww                              #\n" +
+                                  "# wwwwwwwww                             #\n" +
+                                  "#                                       #\n" +
+                                  "##################     ##################\n");
+        
+        Player player = new Player(27, 1, 100, 50, "TOWN_OUTSIDE", TOWN_OUTSIDE);
         
         while (player.hit_points > 0)
         {
+            // Get user input
             char action = scan.next().toLowerCase().charAt(0);
             
+            // Move the character and
+            // set the position of the @ on the map.
+            // Also test for event locations on the map.
             String returnVal = player.MovePlayer(action);
             
-            if ("CHANGE_LOCATION" == returnVal);
+            // If move player requested an action...
+            
+            
+            if ("CHANGE_LOCATION" == returnVal)
                 switch (player.location)
                 {
                     case "TOWN_INSIDE":
-                        System.out.println(returnVal + "<<<<");
                         player.map = TOWN_INSIDE;
                         player.pos_x = 18;
-                        player.pos_y = 7;
+                        player.pos_y = 6;
                         player.map.world[player.pos_x][player.pos_y] = '@';
                         break;
+                    case "TOWN_OUTSIDE":
+                        player.map.world[player.pos_x][player.pos_y-1] = ' ';
+                        player.map = TOWN_OUTSIDE;
+                        player.pos_x = 14;
+                        player.pos_y = 11;
+                        player.map.world[player.pos_x][player.pos_y] = '@';
                     default:
                         break;
                 }
