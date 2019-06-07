@@ -15,8 +15,10 @@ public class AdventureCove {
      */
     public static void main(String[] args) throws IOException 
     {
-        AdventureScript manager = new AdventureScript();
-        manager.parseScript("Adventure1.as");
+        AdventureScript script = new AdventureScript();
+        script.parseScript("Adventure1.as");
+        
+        
     }
     
 }
