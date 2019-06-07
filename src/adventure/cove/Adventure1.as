@@ -1,0 +1,4 @@
+#START TOWN_1
+
+#DECLARE MAP
+
