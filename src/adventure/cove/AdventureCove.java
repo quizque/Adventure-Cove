@@ -92,10 +92,27 @@ public class AdventureCove {
                         player.pos_x = 14;
                         player.pos_y = 11;
                         player.map.world[player.pos_x][player.pos_y] = '@';
+                        break;
+                    case "ROUTE_1":
+                        player.map.world[player.pos_x][player.pos_y-1] = ' ';
+                        player.map = ROUTE_1;
+                        player.pos_x = 1;
+                        player.pos_y = 1;
+                        player.map.world[player.pos_x][player.pos_y] = '@';
+                        break;
                     default:
                         break;
                 }
             
+            System.out.println("***STORED BACKUP MAP***");
+            for (int y = 0; y != player.map.size_y; y++)
+            {
+                for (int x = 0; x != player.map.size_x; x++)
+                    System.out.print(player.map.world_bak[x][y]);
+                System.out.print('\n');
+            }
+            
+            System.out.println("***DISPLAY MAP***");
             
             for (int y = 0; y != player.map.size_y; y++)
             {
@@ -103,8 +120,6 @@ public class AdventureCove {
                     System.out.print(player.map.world[x][y]);
                 System.out.print('\n');
             }
-            
-            player.map.resetWorld();
         }
     }
     

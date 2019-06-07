@@ -68,10 +68,23 @@ public class Player {
                 location = "TOWN_INSIDE";
                 return "CHANGE_LOCATION";
             }
+            else if (pos_x >= 21 && pos_x <= 30)
+            {
+                location = "ROUTE_1";
+                return "CHANGE_LOCATION";
+            }
         
         // TOWN_INSIDE
         if ("TOWN_INSIDE" == location)
             if (pos_x >= 17 && pos_x <= 19 && pos_y == 7)
+            {
+                location = "TOWN_OUTSIDE_DOOR";
+                return "CHANGE_LOCATION";
+            }
+        
+        // ROUTE_1
+        if ("ROUTE_1" == location)
+            if (pos_x >= 18 && pos_y <= 22 && pos_y == 17)
             {
                 location = "TOWN_OUTSIDE";
                 return "CHANGE_LOCATION";
@@ -86,12 +99,19 @@ public class Player {
         
         if (map.world[pos_x][pos_y] != ' ')
         {
+            Boolean hit = false;
             for (char coll : collArr)
                 if (map.world[pos_x][pos_y] == coll)
                 {
+                    hit = true;
                     pos_x = prev_x;
                     pos_y = prev_y;
                 }
+            if (!hit)
+            {
+                map.world[pos_x][pos_y] = '@';
+                map.world[prev_x][prev_y] = map.world_bak[prev_x][prev_y];
+            }
         } else {
             map.world[pos_x][pos_y] = '@';
             map.world[prev_x][prev_y] = ' ';
