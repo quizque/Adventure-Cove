@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class AdventureScript {
     
@@ -20,7 +21,7 @@ public class AdventureScript {
     
     public void parseScript(String scriptLocation) throws FileNotFoundException, IOException
     {
-        BufferedReader script = new BufferedReader(new FileReader(scriptLocation));
+        BufferedReader script = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(scriptLocation)));
         
         String line;
         while ((line = script.readLine()) != null)
