@@ -18,95 +18,129 @@ public class AdventureScript {
         
     }
     
+    // Parse the input file to be used by the game.
     public void parseScript(String scriptLocation) throws FileNotFoundException, IOException
     {
+        // Add the file to a buffered reader so we can read it...
+        // NOTE: This is reading from internal and NEEDS to be changed!
         BufferedReader script = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(scriptLocation)));
         
+        // This is to store the current line from the buffered reader
         String line;
         
         debugPrint("START PARSE");
         
+        // While the buffer is not at the end of the file...
         while ((line = script.readLine()) != null)
         {
+            // Remove white space and check if the line is blank.
             if ("".equals(line.trim()))
-                continue;
+                continue; // Skip line if true
             
+            // If we encounter a DECLARE_MAP tag...
             if ("#DECLARE_MAP".equals(line))
             {
+                // Keep track of if we are still parsing the map
                 Boolean parsingMap = true;
+                
+                // The the map somewhere while parsing it
                 Map parsedMap = new Map();
+                
+                // The max amount of events per map
                 int MaxEvents = 10;
+                
+                // The current amount of events on the map
                 int CurrentEvents = 0;
                 
+                // While we are parsing the map...
                 while (parsingMap)
                 {
-                    if ((line = script.readLine()) == null)
-                        break;
-                    
+                    // Whitespace check
                     if ("".equals(line.trim()))
                         continue;
                     
+                    // If we reach the end of a map tag...
                     if ("#END_DECLARE".equals(line))
                     {
+                        // set parsingMap to false
                         parsingMap = false;
                         debugPrint("END DECLARE");
+                        // and escape the while loop
                         continue;
                     }
                     
+                    // Split the line into an array by spaces
                     String[] args = line.split(" ");
                     
+                    // Switch case the tag
                     switch(args[0])
                     {
+                        // If the tag is a NAME tag...
                         case "#NAME":
+                            // Set the map name to the second arg
                             parsedMap.name = args[1];
                             debugPrint("NAME: " + parsedMap.name);
                             break;
                         
+                        // If the tag is a MAP tag...
                         case "#MAP":
+                            
+                            // Set the width and height of the display map (the acctual map)
                             int width = Integer.parseInt(args[1]);
                             int height = Integer.parseInt(args[2]);
                             
                             debugPrint("WIDTH,HEIGHT: " + width + "," + height);
                             
+                            // declare the display map with width and height
                             parsedMap.displayMap = new char[width][height];
                             
+                            // read a line
                             line = script.readLine();
                             
+                            // and loop through the map
                             for (int y = 0; y != height; y++)
                             {
                                 for (int x = 0; x != width; x++)
                                 {
+                                    // Store the char at the x y
                                     parsedMap.displayMap[x][y] = line.charAt(x);
                                 }
                                 
+                                // read a line
                                 line = script.readLine();
                             }
                             
                             break;
-                            
+                        
+                        // If the tag is the MAP COLLITION tag...
                         case "#MAP_COLL":
+                            
+                            // Go through all the args and append them to the coll array
                             parsedMap.collChars = new char[args.length-1];
                             for (int i = 1; i != args.length; i++)
                                 parsedMap.collChars[i-1] = args[i].charAt(0);
                             
                             String o = "";
-                            
                             for (char k : parsedMap.collChars)
                                 o += k + " ";
-                            
                             debugPrint("MAP COLLIDERS: " + o);
-                            break;
                             
+                            break;
+                        
+                        // If the tag is the MAP EVENT tag...
                         case "#MAP_EVENT":
+                            // Switch case the TYPE of event
                             switch (args[1])
                             {
+                                // If it is a text event...
                                 case "TEXT":
+                                    // Build up the display text
                                     String[] arr = new String[1];
                                     for (int i = 6; i != args.length; i++)
                                         arr[0] += args[i] + " ";
                                     
                                     debugPrint("MAP TEXT EVENT");
-                                    
+                                    // Build a new event with the arguments
                                     parsedMap.events[CurrentEvents] = new Event("TEXT", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), arr);
                                     break;
                             }
@@ -120,6 +154,8 @@ public class AdventureScript {
         }
     }
     
+    // Debugging stuff
+    // NOTE: Needs to be removed
     private void debugPrint(String msg)
     {
         System.out.println(msg);

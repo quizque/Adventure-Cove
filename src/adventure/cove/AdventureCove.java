@@ -6,16 +6,16 @@
 package adventure.cove;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class AdventureCove {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) throws IOException 
     {
+        // Make a new script handler
         AdventureScript script = new AdventureScript();
+        
+        // Parse internal script
         script.parseScript("Adventure1.as");
         
         
