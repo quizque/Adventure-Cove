@@ -7,8 +7,8 @@ package adventure.cove;
 
 
 public class Map {
-    private String[][] displayMap;
-    private String name;
-    private Event[] events;
-    private char[] collChars;
+    public char[][] displayMap;
+    public String name;
+    public Event[] events = new Event[10];
+    public char[] collChars;
 }
