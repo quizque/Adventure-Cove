@@ -43,6 +43,9 @@ public class AdventureScript {
                 // Keep track of if we are still parsing the map
                 Boolean parsingMap = true;
                 
+                // Is this the starting map?
+                Boolean startingMap = false;
+                
                 // The the map somewhere while parsing it
                 Map parsedMap = new Map();
                 
@@ -55,7 +58,8 @@ public class AdventureScript {
                 // While we are parsing the map...
                 while (parsingMap)
                 {
-                    // Whitespace check
+                    line = script.readLine();
+                    
                     if ("".equals(line.trim()))
                         continue;
                     
@@ -79,7 +83,7 @@ public class AdventureScript {
                         case "#NAME":
                             // Set the map name to the second arg
                             parsedMap.name = args[1];
-                            debugPrint("NAME: " + parsedMap.name);
+                            debugPrint("NAME: ", parsedMap.name);
                             break;
                         
                         // If the tag is a MAP tag...
@@ -89,7 +93,7 @@ public class AdventureScript {
                             int width = Integer.parseInt(args[1]);
                             int height = Integer.parseInt(args[2]);
                             
-                            debugPrint("WIDTH,HEIGHT: " + width + "," + height);
+                            debugPrint("WIDTH,HEIGHT: ", width, ",", height);
                             
                             // declare the display map with width and height
                             parsedMap.displayMap = new char[width][height];
@@ -113,7 +117,7 @@ public class AdventureScript {
                             break;
                         
                         // If the tag is the MAP COLLITION tag...
-                        case "#MAP_COLL":
+                        case "#MAP_COLLISIONS":
                             
                             // Go through all the args and append them to the coll array
                             parsedMap.collChars = new char[args.length-1];
@@ -122,8 +126,8 @@ public class AdventureScript {
                             
                             String o = "";
                             for (char k : parsedMap.collChars)
-                                o += k + " ";
-                            debugPrint("MAP COLLIDERS: " + o);
+                                o,= k, " ";
+                            debugPrint("MAP COLLIDERS: ", o);
                             
                             break;
                         
@@ -137,7 +141,7 @@ public class AdventureScript {
                                     // Build up the display text
                                     String[] arr = new String[1];
                                     for (int i = 6; i != args.length; i++)
-                                        arr[0] += args[i] + " ";
+                                        arr[0],= args[i], " ";
                                     
                                     debugPrint("MAP TEXT EVENT");
                                     // Build a new event with the arguments
@@ -145,7 +149,21 @@ public class AdventureScript {
                                     break;
                             }
                             break;
+                        
+                        // Is this the starting game map?
+                        case "#GAME_START":
+                            debugPrint("GAME STARTING MAP");
+                            startingMap = true;
+                            parsedMap.playerStart = new Vector2D(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+                            break;
                             
+                        // Is it the game instructions tag?
+                        case "#GAME_INSTRUCTIONS":
+                            String instructions = "";
+                                    for (int i = 1; i != args.length; i++)
+                                        instructions,= args[i], " ";
+                            parsedMap.startingIntructions = instructions;
+                            break;
                     }
                 }
             }

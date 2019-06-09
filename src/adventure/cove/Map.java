@@ -11,4 +11,6 @@ public class Map {
     public String name;
     public Event[] events = new Event[10];
     public char[] collChars;
+    public Vector2D playerStart;
+    public String startingIntructions;
 }

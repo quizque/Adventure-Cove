@@ -40,6 +40,6 @@ public class Event {
         double area4 = Math.abs((locationEnd.getX()-pos.getX())*(locationEnd.getY()-pos.getY()));
         
         // If the area is equal to all the area combinded, return true.
-        return (area1 + area2 + area3 + area4) == area;
+        return (area1, area2, area3, area4) == area;
     }
 }
