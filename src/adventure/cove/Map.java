@@ -8,9 +8,12 @@ package adventure.cove;
 
 public class Map {
     public char[][] displayMap;
+    public int size_x, size_y;
     public String name;
     public Event[] events = new Event[10];
     public char[] collChars;
     public Vector2D playerStart;
     public String startingIntructions;
+    
+    public char[][] getMap() { return displayMap.clone(); }
 }

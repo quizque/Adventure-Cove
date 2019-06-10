@@ -19,8 +19,11 @@ public class AdventureScript {
     }
     
     // Parse the input file to be used by the game.
-    public void parseScript(String scriptLocation) throws FileNotFoundException, IOException
+    public GameManager parseScript(String scriptLocation) throws FileNotFoundException, IOException
     {
+        // GameManager to store all the data and return
+        GameManager manager = new GameManager();
+        
         // Add the file to a buffered reader so we can read it...
         // NOTE: This is reading from internal and NEEDS to be changed!
         BufferedReader script = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(scriptLocation)));
@@ -28,7 +31,22 @@ public class AdventureScript {
         // This is to store the current line from the buffered reader
         String line;
         
+        // Stores totals
+        int totalMaps = 0;
+        int totalEnemys = 0;
+        
         debugPrint("START PARSE");
+        
+        while ((line = script.readLine()) != null)
+            if ("#DECLARE_MAP".equals(line))
+                totalMaps++;
+            else if ("#DECLARE_ENEMY".equals(line))
+                totalEnemys++;
+        
+        manager.maps = new Map[totalMaps];
+        
+        
+        script = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(scriptLocation)));
         
         // While the buffer is not at the end of the file...
         while ((line = script.readLine()) != null)
@@ -83,7 +101,7 @@ public class AdventureScript {
                         case "#NAME":
                             // Set the map name to the second arg
                             parsedMap.name = args[1];
-                            debugPrint("NAME: ", parsedMap.name);
+                            debugPrint("NAME: " + parsedMap.name);
                             break;
                         
                         // If the tag is a MAP tag...
@@ -93,7 +111,10 @@ public class AdventureScript {
                             int width = Integer.parseInt(args[1]);
                             int height = Integer.parseInt(args[2]);
                             
-                            debugPrint("WIDTH,HEIGHT: ", width, ",", height);
+                            debugPrint("WIDTH,HEIGHT: " + width + "," + height);
+                            
+                            parsedMap.size_x = width;
+                            parsedMap.size_y = height;
                             
                             // declare the display map with width and height
                             parsedMap.displayMap = new char[width][height];
@@ -126,8 +147,8 @@ public class AdventureScript {
                             
                             String o = "";
                             for (char k : parsedMap.collChars)
-                                o,= k, " ";
-                            debugPrint("MAP COLLIDERS: ", o);
+                                o += k + " ";
+                            debugPrint("MAP COLLIDERS: " + o);
                             
                             break;
                         
@@ -141,7 +162,7 @@ public class AdventureScript {
                                     // Build up the display text
                                     String[] arr = new String[1];
                                     for (int i = 6; i != args.length; i++)
-                                        arr[0],= args[i], " ";
+                                        arr[0] += args[i] + " ";
                                     
                                     debugPrint("MAP TEXT EVENT");
                                     // Build a new event with the arguments
@@ -161,15 +182,20 @@ public class AdventureScript {
                         case "#GAME_INSTRUCTIONS":
                             String instructions = "";
                                     for (int i = 1; i != args.length; i++)
-                                        instructions,= args[i], " ";
+                                        instructions += args[i] + " ";
                             parsedMap.startingIntructions = instructions;
                             break;
                     }
                 }
+                
+                if (startingMap)
+                    manager.currentMap = parsedMap;
             }
             
             debugPrint("FINISH PARSE");
         }
+        
+        return manager;
     }
     
     // Debugging stuff

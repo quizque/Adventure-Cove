@@ -26,4 +26,8 @@ public class Vector2D {
     public void setX(int x_) { prev_y = y; x = x_; }
     public void setY(int y_) { prev_x = x; y = y_; }
     public void set(int x_, int y_) { prev_x = x; prev_y = y; x = x_; y = y_; }
+    
+    // Adds
+    public void addX(int x_) { x += x; }
+    public void addY(int y_) { y += y; }
 }

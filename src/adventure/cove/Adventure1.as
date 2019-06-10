@@ -12,7 +12,7 @@
 
 -- This will state that we want a map with a width of 52 and a height of 16
 #MAP 52 16
-#####################          #####################
+####################          ######################
 #                                                  #
 #                                                  #
 #      /|--------|\              /|¯¯¯¯¯¯¯¯|\      #
@@ -34,6 +34,9 @@
 
 -- Define a new TEXT event from 11,16 to 11,16 that will display to the user "The sign reads: Lil' Town"
 #MAP_EVENT TEXT 11 26 11 26 The sign reads: Lil' Town
+
+-- Define a new TELEPORT event from 10, 14 to 10, 14 that will teleport the user to 1 1 @ ROUTE_1
+#MAP_EVENT TELEPORT 10 14 10 14 1 1 ROUTE_1
 
 -- Tell the parser that we are done declaring this map
 #END_DECLARE

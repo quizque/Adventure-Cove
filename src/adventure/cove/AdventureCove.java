@@ -16,8 +16,8 @@ public class AdventureCove {
         AdventureScript script = new AdventureScript();
         
         // Parse internal script
-        script.parseScript("Adventure1.as");
-        
+        GameManager manager = script.parseScript("Adventure1.as");
+        manager.displayMap();
         
     }
     
