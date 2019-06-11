@@ -67,11 +67,9 @@ public class AdventureScript {
                 // The the map somewhere while parsing it
                 Map parsedMap = new Map();
                 
-                // The max amount of events per map
-                int MaxEvents = 10;
-                
-                // The current amount of events on the map
-                int CurrentEvents = 0;
+                // The temp var to hold events on the map
+                int maxEvents = 10;
+                Event[] tempEvent = new Event[maxEvents];
                 
                 // While we are parsing the map...
                 while (parsingMap)
@@ -159,14 +157,33 @@ public class AdventureScript {
                             {
                                 // If it is a text event...
                                 case "TEXT":
-                                    // Build up the display text
-                                    String[] arr = new String[1];
-                                    for (int i = 6; i != args.length; i++)
-                                        arr[0] += args[i] + " ";
                                     
-                                    debugPrint("MAP TEXT EVENT");
+                                    int newlines = 1;
+                                    for (int i = 6; i != args.length; i++)
+                                        if (args[i].length() >= 3)
+                                            if (args[i].charAt(args[i].length()-1) == 'n' && args[i].charAt(args[i].length()-2) == '\\')
+                                                newlines++;
+                                    
+                                    String[] data = new String[newlines];
+                                    newlines = 0;
+                                    
+                                    data[0] = args[6] + " ";
+                                    for (int i = 7; i != args.length; i++)
+                                        if (args[i].charAt(args[i].length()-1) == 'n' && args[i].charAt(args[i].length()-2) == '\\') 
+                                        {
+                                            data[newlines] = data[newlines].trim();
+                                            newlines++;
+                                            data[newlines] = args[i].substring(0, args[i].length()-2) + " ";
+                                        }
+                                        else
+                                            data[newlines] += args[i] + " ";
+                                    
+                                    for (String i : data)
+                                        System.out.println("LINES: " + i);
+                                    
                                     // Build a new event with the arguments
-                                    parsedMap.events[CurrentEvents] = new Event("TEXT", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), arr);
+                                    tempEvent[tempEvent.length - maxEvents] = new Event("TEXT", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), data);
+                                    maxEvents--;
                                     break;
                             }
                             break;
@@ -191,7 +208,22 @@ public class AdventureScript {
                 if (startingMap)
                     manager.currentMap = parsedMap;
                 
-                debugPrint("FINISH PARSE");
+                int c = 0;
+                for (int i = 0; i != tempEvent.length; i++)
+                    if (tempEvent[i] != null)
+                        c++;
+                
+                parsedMap.events = new Event[c];
+                
+                c = 0;
+                for (int i = 0; i != tempEvent.length; i++)
+                    if (tempEvent[i] != null)
+                    {
+                        parsedMap.events[c] = tempEvent[i];
+                        c++;
+                    }
+                    
+                debugPrint("FINISH PARSE" + parsedMap.events.length);
             }
             
             

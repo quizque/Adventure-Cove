@@ -48,7 +48,7 @@ public class GameManager {
         return '0';
     }
     
-    private void processInput(char dir)
+    private void processInput(char dir) throws IOException
     {
         switch (dir)
         {
@@ -66,6 +66,9 @@ public class GameManager {
                 break;
         }
         
+        
+        checkEvents();
+        
         for (char coll : currentMap.collChars)
             if (currentMap.getCharAtPos(player.getPosition()) == coll)
             {
@@ -74,8 +77,43 @@ public class GameManager {
             }
     }
     
+    private void checkEvents() throws IOException
+    {
+        for (Event event : currentMap.events)
+        {
+            System.out.println(event.inEventArea(player.getPosition()));
+            if (event.inEventArea(player.getPosition()))
+                switch (event.type)
+                {
+                    case "TEXT":
+                        displayText(event.data);
+                        break;
+                }
+        }
+    }
+    
+    private void displayText(String[] data) throws IOException
+    {
+        clearScreen();
+        
+        for (String line : data)
+        {
+            System.out.print("║░");
+            System.out.print(line);
+            System.out.println("░║");
+        }
+        
+        // Read twice because of weird java issue
+        System.in.read();
+        System.in.read();
+        
+    }
+    
     private void displayGame()
     {
+        clearScreen();
+        
+        System.out.println("POSITION: " + player.getPosition().getX() + ", " + player.getPosition().getY());
         displayMap();
     }
     
@@ -91,6 +129,11 @@ public class GameManager {
             System.out.print('\n');
         }
                     
+    }
+    
+    private void clearScreen()
+    {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     
     private void switchMap(String mapName, Vector2D pos_)
