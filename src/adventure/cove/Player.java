@@ -18,6 +18,8 @@ public class Player {
     public void moveLeft() { position.addX(-1); }
     public void moveRight() { position.addX(1); }
     
+    public int getHP() { return hitpoints; }
     public void setPosition(Vector2D pos_) { position = pos_; }
+    public void restorePrevPos() { position.restoreXY(); }
     public Vector2D getPosition() { return position; }
 }

@@ -16,4 +16,5 @@ public class Map {
     public String startingIntructions;
     
     public char[][] getMap() { return displayMap.clone(); }
+    public char getCharAtPos(Vector2D pos_) { return displayMap[pos_.getX()][pos_.getY()]; }
 }

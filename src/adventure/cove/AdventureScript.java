@@ -190,9 +190,11 @@ public class AdventureScript {
                 
                 if (startingMap)
                     manager.currentMap = parsedMap;
+                
+                debugPrint("FINISH PARSE");
             }
             
-            debugPrint("FINISH PARSE");
+            
         }
         
         return manager;

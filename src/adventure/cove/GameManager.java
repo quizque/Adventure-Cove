@@ -5,6 +5,8 @@
  */
 package adventure.cove;
 
+import java.io.IOException;
+
 /**
  *
  * @author user
@@ -19,7 +21,65 @@ public class GameManager {
         
     }
     
-    public void displayMap()
+    public void startGame() throws IOException
+    {
+        while (player.getHP() != 0)
+        {
+            char input = getInput();
+            processInput(input);
+            displayGame();
+        }
+    }
+    
+    private char getInput() throws IOException
+    {
+        switch (Character.toUpperCase((char)System.in.read()))
+        {
+            case 'W':
+                return 'W';
+            case 'A':
+                return 'A';
+            case 'S':
+                return 'S';
+            case 'D':
+                return 'D';
+        }
+        
+        return '0';
+    }
+    
+    private void processInput(char dir)
+    {
+        switch (dir)
+        {
+            case 'W':
+                player.moveForward();
+                break;
+            case 'A':
+                player.moveLeft();
+                break;
+            case 'S':
+                player.moveBackwords();
+                break;
+            case 'D':
+                player.moveRight();
+                break;
+        }
+        
+        for (char coll : currentMap.collChars)
+            if (currentMap.getCharAtPos(player.getPosition()) == coll)
+            {
+                player.restorePrevPos();
+                break;
+            }
+    }
+    
+    private void displayGame()
+    {
+        displayMap();
+    }
+    
+    private void displayMap()
     {
         for (int y = 0; y != currentMap.size_y; y++)
         {
@@ -33,10 +93,10 @@ public class GameManager {
                     
     }
     
-    public void switchMap(String mapName, Vector2D pos_)
+    private void switchMap(String mapName, Vector2D pos_)
     {
         for (Map map : maps)
-            if (map.name == mapName)
+            if (map.name.equals(mapName))
             {
                 currentMap = map;
                 player.setPosition(pos_);

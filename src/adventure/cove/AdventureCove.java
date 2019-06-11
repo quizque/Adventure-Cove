@@ -17,7 +17,8 @@ public class AdventureCove {
         
         // Parse internal script
         GameManager manager = script.parseScript("Adventure1.ads");
-        manager.displayMap();
+        
+        manager.startGame();
         
     }
     

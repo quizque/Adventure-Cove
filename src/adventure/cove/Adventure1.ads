@@ -40,3 +40,51 @@
 
 -- Tell the parser that we are done declaring this map
 #END_DECLARE
+
+
+#DECLARE_ENEMY
+
+-- Max hit points
+#HIT_POINTS 25
+
+-- Max attack damage
+#ATTACK_DMG 5
+
+-- Change for the attack to hit
+#HIT_RATIO 0.9
+
+-- Chance for enemy to get a crit bonus
+#CRIT_RATIO 0.05
+
+-- How much extra damage will it do if they get the crit bonus
+#CRIT_BONUS 2
+
+-- Set the enemy display
+#ENEMY
+                   (    )
+                  ((((()))
+                  |o\ /o)|
+                  ( (  _')
+                   (._.  /\__
+                  ,\___,/ '  ')
+    '.,_,,       (  .- .   .    )
+     \   \\     ( '        )(    )
+      \   \\    \.  _.__ ____( .  |
+       \  /\\   .(   .'  /\  '.  )
+        \(  \\.-' ( /    \/    \)
+         '  ()) _'.-|/\/\/\/\/\|
+             '\\ .( |\/\/\/\/\/|
+               '((  \    /\    /
+               ((((  '.__\/__.')
+                ((,) /   ((()   )
+                 "..-,  (()("   /
+                  _//.   ((() ."
+          _____ //,/" ___ ((( ', ___
+                           ((  )
+                            / /
+                          _/,/'
+                        /,/,"
+#END_ENEMY
+
+-- Tell the parser that we are done declaring this enemy
+#END_DECLARE
