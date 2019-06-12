@@ -171,12 +171,15 @@ public class AdventureScript {
                                     for (int i = 7; i != args.length; i++)
                                         if (args[i].charAt(args[i].length()-1) == 'n' && args[i].charAt(args[i].length()-2) == '\\') 
                                         {
-                                            data[newlines] = data[newlines].trim();
+                                            data[newlines] += args[i].substring(0, args[i].length()-2);
                                             newlines++;
-                                            data[newlines] = args[i].substring(0, args[i].length()-2) + " ";
+                                            i++;
+                                            data[newlines] = args[i] + " ";
                                         }
                                         else
                                             data[newlines] += args[i] + " ";
+                                    
+                                    data[newlines] = data[newlines].trim();
                                     
                                     for (String i : data)
                                         System.out.println("LINES: " + i);

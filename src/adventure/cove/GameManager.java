@@ -110,13 +110,20 @@ public class GameManager {
         {
             System.out.print("| ");
             System.out.print(line);
+            
+            if (line.length() < longestLine)
+            {
+                for (int i = 0; i != (longestLine-line.length()); i++)
+                    System.out.print(' ');
+            }
+            
             System.out.println(" |");
         }
         
         System.out.print(" ");
         for (int i = 0; i != longestLine+2; i++)
             System.out.print("-");
-        System.out.print("\n");
+        System.out.print("\nPress enter to continue...");
         
         // Read twice because of weird java issue
         System.in.read();
