@@ -96,12 +96,27 @@ public class GameManager {
     {
         clearScreen();
         
+        int longestLine = 0;
+        for (String line : data)
+            if (line.length() > longestLine)
+                longestLine = line.length();
+        
+        System.out.print(" ");
+        for (int i = 0; i != longestLine+2; i++)
+            System.out.print("-");
+        System.out.print("\n");
+        
         for (String line : data)
         {
-            System.out.print("║░");
+            System.out.print("| ");
             System.out.print(line);
-            System.out.println("░║");
+            System.out.println(" |");
         }
+        
+        System.out.print(" ");
+        for (int i = 0; i != longestLine+2; i++)
+            System.out.print("-");
+        System.out.print("\n");
         
         // Read twice because of weird java issue
         System.in.read();

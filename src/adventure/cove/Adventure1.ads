@@ -33,7 +33,7 @@
 #MAP_COLLISIONS / | - \ _ ▄ # │
 
 -- Define a new TEXT event from 11,16 to 11,16 that will display to the user "The sign reads: Lil' Town"
-#MAP_EVENT TEXT 25 11 25 11 The sign reads: Lil' Town.
+#MAP_EVENT TEXT 25 11 25 11 The sign reads: Lil' Town.\n Help this is a new line.
 
 -- Define a new TELEPORT event from 10, 14 to 10, 14 that will teleport the user to 1 1 @ ROUTE_1
 #MAP_EVENT TELEPORT 10 14 10 14 1 1 ROUTE_1
