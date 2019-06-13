@@ -86,7 +86,12 @@ public class GameManager {
                 switch (event.type)
                 {
                     case "TEXT":
+                        System.out.println("TEXTY HERE");
                         displayText(event.data);
+                        break;
+                    case "TELEPORT":
+                        System.out.println("TELEPORTY HERE");
+                        switchMap(event.data[2], new Vector2D(Integer.parseInt(event.data[0]), Integer.parseInt(event.data[1])));
                         break;
                 }
         }
@@ -161,11 +166,14 @@ public class GameManager {
     private void switchMap(String mapName, Vector2D pos_)
     {
         for (Map map : maps)
+        {
+            if (map == null) {continue;}
             if (map.name.equals(mapName))
             {
                 currentMap = map;
                 player.setPosition(pos_);
                 return;
             }
+        }
     }
 }

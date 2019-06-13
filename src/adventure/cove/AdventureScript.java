@@ -188,6 +188,19 @@ public class AdventureScript {
                                     tempEvent[tempEvent.length - maxEvents] = new Event("TEXT", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), data);
                                     maxEvents--;
                                     break;
+                                    
+                                case "TELEPORT":
+                                    String[] data_teleport = new String[3];
+                                    
+                                    data_teleport[0] = args[6];
+                                    data_teleport[1] = args[7];
+                                    data_teleport[2] = args[8];
+                                    
+                                    tempEvent[tempEvent.length - maxEvents] = new Event("TELEPORT", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), data_teleport);
+                                    maxEvents--;
+                                    break;
+                                default:
+                                    break;
                             }
                             break;
                         
