@@ -138,7 +138,7 @@ public class GameManager {
     
     private void displayGame()
     {
-        clearScreen();
+        //clearScreen();
         
         System.out.println("POSITION: " + player.getPosition().getX() + ", " + player.getPosition().getY());
         displayMap();
@@ -165,12 +165,12 @@ public class GameManager {
     
     private void switchMap(String mapName, Vector2D pos_)
     {
-        for (Map map : maps)
+        
+        for (int i = 0; i != maps.length; i++)
         {
-            if (map == null) {continue;}
-            if (map.name.equals(mapName))
+            if (maps[i].name.equals(mapName))
             {
-                currentMap = map;
+                currentMap = maps[i];
                 player.setPosition(pos_);
                 return;
             }

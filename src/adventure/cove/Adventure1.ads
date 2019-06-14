@@ -27,8 +27,8 @@
 #     |  _         |            |  _         |     #
 #     | | |  |¯|   |            | | |  |¯|   |     #
 #     |------|-|---|            |------|-|---|     #
-#                         ▄                        #
-#                         │                        #
+#                         ▄                        #
+#                         │                        #
 #                                                  #
 #                                                  #
 ####################################################
@@ -40,7 +40,9 @@
 #MAP_EVENT TEXT 26 11 26 12 The sign reads:\n Welcome to Lil' Town!
 
 -- Define a new TELEPORT event from 10, 14 to 10, 14 that will teleport the user to 1 1 @ ROUTE_1
-#MAP_EVENT TELEPORT 14 13 14 13 1 1 TOWN_INSIDE
+#MAP_EVENT TELEPORT 14 10 14 10 18 6 TOWN_HOUSE_LEFT
+
+#MAP_EVENT TELEPORT 40 10 40 10 18 6 TOWN_HOUSE_RIGHT
 
 -- Tell the parser that we are done declaring this map
 #END_DECLARE
@@ -49,11 +51,11 @@
 
 
 ---
---- TOWN_INSIDE
+--- TOWN_INSIDE_LEFT
 ---
 
 #DECLARE_MAP
-#NAME TOWN_INSIDE
+#NAME TOWN_HOUSE_LEFT
 
 #MAP 25 8
 #########################
@@ -64,6 +66,34 @@
 #-                 /  \ #
 #                       #
 #################   #####
+
+#MAP_EVENT TELEPORT 17 7 19 7 14 11 TOWN_1
+
+#MAP_COLLISIONS # | - \ / _
+#END_DECLARE
+
+
+
+
+---
+--- TOWN_INSIDE_RIGHT
+---
+
+#DECLARE_MAP
+#NAME TOWN_HOUSE_RIGHT
+
+#MAP 25 9
+#########################
+#     |-----|           #
+#-                      #
+#|     \__/     ______  #
+#|     |  |      |  |   #
+#|     |__|             #
+#-     /  \             #
+#                       #
+#################   #####
+
+#MAP_EVENT TELEPORT 17 7 19 7 40 11 TOWN_1
 
 #MAP_COLLISIONS # | - \ / _
 #END_DECLARE

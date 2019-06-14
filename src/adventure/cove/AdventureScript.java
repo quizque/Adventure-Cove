@@ -45,6 +45,7 @@ public class AdventureScript {
         
         manager.maps = new Map[totalMaps];
         
+        int totalMaps_copy = totalMaps;
         
         script = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(scriptLocation)));
         
@@ -238,12 +239,18 @@ public class AdventureScript {
                         parsedMap.events[c] = tempEvent[i];
                         c++;
                     }
+                
+                manager.maps[totalMaps-totalMaps_copy] = parsedMap;
+                totalMaps++;
                     
                 debugPrint("FINISH PARSE" + parsedMap.events.length);
             }
             
             
         }
+        
+        for (Map map : manager.maps)
+            System.out.println(map.name);
         
         return manager;
     }
