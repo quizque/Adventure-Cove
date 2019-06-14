@@ -42,7 +42,9 @@
 -- Define a new TELEPORT event from 10, 14 to 10, 14 that will teleport the user to 1 1 @ ROUTE_1
 #MAP_EVENT TELEPORT 14 10 14 10 18 6 TOWN_HOUSE_LEFT
 
-#MAP_EVENT TELEPORT 40 10 40 10 18 6 TOWN_HOUSE_RIGHT
+#MAP_EVENT TELEPORT 40 10 40 10 18 7 TOWN_HOUSE_RIGHT
+
+#MAP_EVENT TELEPORT 20 0 29 0 20 16 ROUTE_1
 
 -- Tell the parser that we are done declaring this map
 #END_DECLARE
@@ -93,7 +95,40 @@
 #                       #
 #################   #####
 
-#MAP_EVENT TELEPORT 17 7 19 7 40 11 TOWN_1
+#MAP_EVENT TELEPORT 17 8 19 8 40 11 TOWN_1
 
 #MAP_COLLISIONS # | - \ / _
+#END_DECLARE
+
+
+---
+--- ROUTE_1
+---
+
+#DECLARE_MAP
+#NAME ROUTE_1
+
+#MAP 41 18
+######     ##############################
+#              wwwwwwwwwwwwwwwwwwwwwwwww#
+#                                       #
+#wwwwwwwwwwwwwwwww                      #
+############################        #####
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#
+#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#
+###      ################################
+#                                       #
+#           www           wwwww         #
+#                        wwwwwwww       #
+#   wwwww                   wwww        #
+#   wwwwww                              #
+# wwwwwwwww                             #
+#                                       #
+##################     ##################
+
+#MAP_EVENT TELEPORT 18 17 22 17 25 1 TOWN_1
+
+#MAP_COLLISIONS #
 #END_DECLARE
