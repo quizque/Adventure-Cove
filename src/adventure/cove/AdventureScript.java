@@ -44,8 +44,10 @@ public class AdventureScript {
                 totalEnemys++;
         
         manager.maps = new Map[totalMaps];
+        manager.battleManager.enemys = new Enemy[totalEnemys];
         
         int totalMaps_copy = totalMaps;
+        int totalEnemys_copy = totalEnemys;
         
         script = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(scriptLocation)));
         
@@ -247,6 +249,97 @@ public class AdventureScript {
             }
             
             
+            
+            
+            
+            
+            
+            
+            if ("#DECLARE_ENEMY".equals(line))
+            {
+                Boolean parsingEnemy = true;
+                
+                Enemy tempEnemy = new Enemy();
+                
+                while (parsingEnemy)
+                {
+                    line = script.readLine();
+                    
+                    if ("".equals(line.trim()))
+                        continue;
+                    
+                    // If we reach the end of a map tag...
+                    if ("#END_DECLARE".equals(line))
+                    {
+                        // set parsingMap to false
+                        parsingEnemy = false;
+                        debugPrint("END DECLARE");
+                        // and escape the while loop
+                        continue;
+                    }
+                    
+                    // Split the line into an array by spaces
+                    String[] args = line.split(" ");
+                    
+                    switch (args[0])
+                    {
+                        case "#NAME":
+                            tempEnemy.enemyName = args[1].toUpperCase();
+                            break;
+                        
+                        case "#HITPOINTS":
+                            tempEnemy.enemyHealth = Integer.parseInt(args[1]);
+                            break;
+                            
+                        case "#DAMAGE_MAX":
+                            tempEnemy.enemyDamage = Integer.parseInt(args[1]);
+                            break;
+                            
+                        case "#RANDOM_SPAWN":
+                            tempEnemy.randomSpawn = true;
+                            break;
+                            
+                        case "#DISPLAY":
+                            
+                            // Set the width and height of the display map (the acctual map)
+                            int width = Integer.parseInt(args[1]);
+                            int height = Integer.parseInt(args[2]);
+                            
+                            debugPrint("WIDTH,HEIGHT: " + width + "," + height);
+                            
+                            tempEnemy.display_x = width;
+                            tempEnemy.display_y = height;
+                            
+                            // declare the display map with width and height
+                            tempEnemy.displayEnemy = new char[width][height];
+                            
+                            // read a line
+                            line = script.readLine();
+                            
+                            // and loop through the map
+                            for (int y = 0; y != height; y++)
+                            {
+                                for (int x = 0; x != width; x++)
+                                {
+                                    // Store the char at the x y
+                                    tempEnemy.displayEnemy[x][y] = line.charAt(x);
+                                    System.out.print(line.charAt(x));
+                                }
+                                
+                                // read a line
+                                line = script.readLine();
+                                System.out.print('\n');
+                            }
+                            
+                            break;
+                    }
+                }
+                
+                debugPrint("ENEMY --- HP." + tempEnemy.enemyHealth + " DMG." + tempEnemy.enemyDamage + " NAME." + tempEnemy.enemyName);
+                
+                manager.battleManager.enemys[totalEnemys-totalEnemys_copy] = tempEnemy;
+                totalEnemys++;
+            }
         }
         
         for (Map map : manager.maps)

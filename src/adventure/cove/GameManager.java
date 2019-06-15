@@ -15,6 +15,7 @@ public class GameManager {
     Map[] maps;
     Map   currentMap;
     Player player = new Player();
+    BattleManager battleManager = new BattleManager();
     
     GameManager()
     {
@@ -75,6 +76,9 @@ public class GameManager {
                 player.restorePrevPos();
                 break;
             }
+        
+        if (currentMap.getCharAtPos(player.getPosition()) == 'w' && Math.random() >= 0.9)
+            battleManager.triggerRandomBattle(player);
     }
     
     private void checkEvents() throws IOException
@@ -141,6 +145,7 @@ public class GameManager {
         //clearScreen();
         
         System.out.println("POSITION: " + player.getPosition().getX() + ", " + player.getPosition().getY());
+        System.out.println("HP: " + player.getHP());
         displayMap();
     }
     
