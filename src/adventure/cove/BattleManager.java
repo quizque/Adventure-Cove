@@ -21,7 +21,11 @@ public class BattleManager {
         battleEnemy.store();
         Scanner sc = new Scanner(System.in);
         
-        while (battleEnemy.enemyHealth >= 1)
+        clearScreen();
+        System.out.println("Oh no! You ran into a " + battleEnemy.enemyName + "...\nType anything and press enter to continue...");
+        sc.next();
+        
+        while (battleEnemy.enemyHealth > 0 || ply.getHP() > 0)
         {
             clearScreen();
             displayEnemy(battleEnemy);

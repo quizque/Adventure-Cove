@@ -24,7 +24,7 @@ public class GameManager {
     
     public void startGame() throws IOException
     {
-        while (player.getHP() != 0)
+        while (player.getHP() > 0)
         {
             char input = getInput();
             processInput(input);
@@ -77,24 +77,38 @@ public class GameManager {
                 break;
             }
         
-        if (currentMap.getCharAtPos(player.getPosition()) == 'w' && Math.random() >= 0.9)
+        if (currentMap.getCharAtPos(player.getPosition()) == 'w' && Math.random() >= 0.925)
             battleManager.triggerRandomBattle(player);
+    }
+    
+    private void displayInfo()
+    {
+        System.out.print(' ');
+        for (int i = 0; i != Math.ceil(Math.log10(player.getHP()))+6; i++)
+            System.out.print('-');
+        System.out.print('-');
+        System.out.print('\n');
+        
+        System.out.print("| HP: " + player.getHP() + " |\n");
+        
+        System.out.print(' ');
+        for (int i = 0; i != Math.ceil(Math.log10(player.getHP()))+6; i++)
+            System.out.print('-');
+        System.out.print('-');
+        System.out.print('\n');
     }
     
     private void checkEvents() throws IOException
     {
         for (Event event : currentMap.events)
         {
-            System.out.println(event.inEventArea(player.getPosition()));
             if (event.inEventArea(player.getPosition()))
                 switch (event.type)
                 {
                     case "TEXT":
-                        System.out.println("TEXTY HERE");
                         displayText(event.data);
                         break;
                     case "TELEPORT":
-                        System.out.println("TELEPORTY HERE");
                         switchMap(event.data[2], new Vector2D(Integer.parseInt(event.data[0]), Integer.parseInt(event.data[1])));
                         break;
                 }
@@ -142,11 +156,11 @@ public class GameManager {
     
     private void displayGame()
     {
-        //clearScreen();
+        clearScreen();
         
         System.out.println("POSITION: " + player.getPosition().getX() + ", " + player.getPosition().getY());
-        System.out.println("HP: " + player.getHP());
         displayMap();
+        displayInfo();
     }
     
     private void displayMap()

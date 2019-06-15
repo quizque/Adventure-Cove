@@ -184,9 +184,6 @@ public class AdventureScript {
                                     
                                     data[newlines] = data[newlines].trim();
                                     
-                                    for (String i : data)
-                                        System.out.println("LINES: " + i);
-                                    
                                     // Build a new event with the arguments
                                     tempEvent[tempEvent.length - maxEvents] = new Event("TEXT", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), data);
                                     maxEvents--;
@@ -323,12 +320,10 @@ public class AdventureScript {
                                 {
                                     // Store the char at the x y
                                     tempEnemy.displayEnemy[x][y] = line.charAt(x);
-                                    System.out.print(line.charAt(x));
                                 }
                                 
                                 // read a line
                                 line = script.readLine();
-                                System.out.print('\n');
                             }
                             
                             break;
@@ -342,9 +337,6 @@ public class AdventureScript {
             }
         }
         
-        for (Map map : manager.maps)
-            System.out.println(map.name);
-        
         return manager;
     }
     
@@ -352,6 +344,6 @@ public class AdventureScript {
     // NOTE: Needs to be removed
     private void debugPrint(String msg)
     {
-        System.out.println(msg);
+        //System.out.println(msg);
     }
 }
