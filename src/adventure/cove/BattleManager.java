@@ -18,6 +18,9 @@ public class BattleManager {
     public void triggerRandomBattle(Player ply) throws IOException
     {
         Enemy battleEnemy = enemys[(int)(Math.random() * enemys.length)];
+        while (!battleEnemy.randomSpawn || battleEnemy == null)
+            battleEnemy = enemys[(int)(Math.random() * enemys.length)];
+        
         battleEnemy.store();
         Scanner sc = new Scanner(System.in);
         
@@ -49,6 +52,51 @@ public class BattleManager {
         sc.next();
     }
     
+    public void triggerBattle(Player ply, String enemyName)
+    {
+        Enemy battleEnemy = enemys[0];
+        for (Enemy enm : enemys)
+            if (enm.enemyName.equals(enemyName))
+                battleEnemy = enm;
+        
+        battleEnemy.store();
+        Scanner sc = new Scanner(System.in);
+        
+        clearScreen();
+        System.out.println("  ____   ____   _____ _____   ____       _______ _______ _      ______ _ \n" +
+                           " |  _ \\ / __ \\ / ____/ ____| |  _ \\   /\\|__   __|__   __| |    |  ____| |\n" +
+                           " | |_) | |  | | (___| (___   | |_) | /  \\  | |     | |  | |    | |__  | |\n" +
+                           " |  _ <| |  | |\\___ \\\\___ \\  |  _ < / /\\ \\ | |     | |  | |    |  __| | |\n" +
+                           " | |_) | |__| |____) |___) | | |_) / ____ \\| |     | |  | |____| |____|_|\n" +
+                           " |____/ \\____/|_____/_____/  |____/_/    \\_\\_|     |_|  |______|______(_)");
+        System.out.println("You have encoutered the boss! The battle is ON!!!");
+        sc.next();
+        
+        while (battleEnemy.enemyHealth > 0 || ply.getHP() > 0)
+        {
+            clearScreen();
+            displayEnemy(battleEnemy);
+            displayInfo(battleEnemy);
+            
+            System.out.print("What do you want to do? ([A]TTACK/[H]EAL/[R]UN) ");
+            char action = sc.next().toUpperCase().charAt(0);
+            
+            Boolean quit = processAction(action, battleEnemy, ply, sc);
+            
+            if (quit)
+                break;
+        }
+        
+        System.out.println("You defeated the boss and won the game with " + ply.getHP() + " HP left!!!\n" +
+                "Thank you for playing my game, if you want more you can make your own" +
+                "scripts and run them inside the program at the start!" +
+                "Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting." +
+                "\nCREDITS:\nNick Coombe - Devloper\nColin Vanvervorf - Play Tester\nDrew Purde - Play Tester");
+        
+        battleEnemy.restore();
+        sc.next();
+    }
+    
     private Boolean processAction(char action, Enemy em, Player ply, Scanner sc)
     {
         switch (action)
@@ -66,7 +114,7 @@ public class BattleManager {
                 break;
                 
             case 'R':
-                if (Math.random() >= 0.90 && em.randomSpawn)
+                if (Math.random() >= 0.90 && em.randomSpawn == true)
                     return true;
                 else
                     System.out.println("You failed to escape!");

@@ -158,6 +158,11 @@ public class AdventureScript {
                             // Switch case the TYPE of event
                             switch (args[1])
                             {
+                                case "BOSS":
+                                    String[] data2 = {args[6]};
+                                    tempEvent[tempEvent.length - maxEvents] = new Event("BOSS", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), data2);
+                                    break;
+                                
                                 // If it is a text event...
                                 case "TEXT":
                                     

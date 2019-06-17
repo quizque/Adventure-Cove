@@ -111,6 +111,9 @@ public class GameManager {
                     case "TELEPORT":
                         switchMap(event.data[2], new Vector2D(Integer.parseInt(event.data[0]), Integer.parseInt(event.data[1])));
                         break;
+                    case "BOSS":
+                        battleManager.triggerBattle(player, "ASUUTA");
+                        break;
                 }
         }
     }
