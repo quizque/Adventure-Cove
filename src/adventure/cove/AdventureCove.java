@@ -33,6 +33,7 @@ public class AdventureCove {
                            " 2. You can interact with some objects! Try walking into them.\n" +
                            " 3. Only press WASD and enter one at a time. Combo moves can be made but you miss a lot of the game\n" +
                            " 4. The goal of the game is to make it to the end and beat the boss!\n" +
+                           " 5. YOU ARE THE @ CHARACTER ON THE MAP!" +
                            " Press enter to continue...");
         System.in.read();
         

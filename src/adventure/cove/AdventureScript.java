@@ -217,7 +217,7 @@ public class AdventureScript {
                         case "#GAME_START":
                             debugPrint("GAME STARTING MAP");
                             startingMap = true;
-                            parsedMap.playerStart = new Vector2D(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+                            parsedMap.playerStart = new Vector2D(3, 3);
                             break;
                             
                         // Is it the game instructions tag?
