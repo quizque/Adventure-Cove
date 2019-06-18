@@ -159,6 +159,7 @@ public class AdventureScript {
                             switch (args[1])
                             {
                                 case "BOSS":
+                                    System.out.println("Boss battle: " + args[6]);
                                     String[] data2 = {args[6]};
                                     tempEvent[tempEvent.length - maxEvents] = new Event("BOSS", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), data2);
                                     break;

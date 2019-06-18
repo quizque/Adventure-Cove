@@ -11,7 +11,7 @@ package adventure.cove;
  */
 public class Player {
     private Vector2D position = new Vector2D(1, 1);
-    private int hitpoints = 100;
+    private int hitpoints = 300;
     
     public void moveForward() { position.addY(-1); }
     public void moveBackwords() { position.addY(1); }

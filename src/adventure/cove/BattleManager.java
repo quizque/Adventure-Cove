@@ -41,6 +41,18 @@ public class BattleManager {
             
             if (quit)
                 break;
+            
+            if (ply.getHP() < 1)
+            {
+                System.out.println("| You died to the boss and lost the game!\n\n" +
+                "| Thank you for playing my game, if you want more you can make your own\n" +
+                "| scripts and run them inside the program at the start!\n" +
+                "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
+                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
+                System.in.read();
+                System.in.read();
+                System.exit(0);
+            }
         }
         
         if (battleEnemy.enemyHealth <= 0)
@@ -52,7 +64,7 @@ public class BattleManager {
         sc.next();
     }
     
-    public void triggerBattle(Player ply, String enemyName)
+    public Boolean triggerBattle(Player ply, String enemyName)
     {
         Enemy battleEnemy = enemys[0];
         for (Enemy enm : enemys)
@@ -69,7 +81,7 @@ public class BattleManager {
                            " |  _ <| |  | |\\___ \\\\___ \\  |  _ < / /\\ \\ | |     | |  | |    |  __| | |\n" +
                            " | |_) | |__| |____) |___) | | |_) / ____ \\| |     | |  | |____| |____|_|\n" +
                            " |____/ \\____/|_____/_____/  |____/_/    \\_\\_|     |_|  |______|______(_)");
-        System.out.println("You have encoutered the boss! The battle is ON!!!");
+        System.out.println("You have encoutered the boss! The battle is ON!!!\nPress any key and then enter to continue...");
         sc.next();
         
         while (battleEnemy.enemyHealth > 0 || ply.getHP() > 0)
@@ -85,16 +97,21 @@ public class BattleManager {
             
             if (quit)
                 break;
+            
+            if (ply.getHP() < 1)
+                return true;
         }
         
-        System.out.println("You defeated the boss and won the game with " + ply.getHP() + " HP left!!!\n" +
-                "Thank you for playing my game, if you want more you can make your own" +
-                "scripts and run them inside the program at the start!" +
-                "Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting." +
-                "\nCREDITS:\nNick Coombe - Devloper\nColin Vanvervorf - Play Tester\nDrew Purde - Play Tester");
+        clearScreen();
         
-        battleEnemy.restore();
+        System.out.println("| You defeated the boss and won the game with " + ply.getHP() + " HP left!!!\n\n" +
+                "| Thank you for playing my game, if you want more you can make your own\n" +
+                "| scripts and run them inside the program at the start!\n" +
+                "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
+                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
         sc.next();
+        System.exit(0);
+        return false;
     }
     
     private Boolean processAction(char action, Enemy em, Player ply, Scanner sc)

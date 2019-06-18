@@ -8,12 +8,6 @@
 -- Give the map the name TOWN_1
 #NAME TOWN_1
 
--- Tell the parser this is the games starting area, and this is where the player should start
-#GAME_START 1 1
-
--- Instructions to give the user when they start the game
-#GAME_INSTRUCTIONS Make it to the end and defeat the boss!
-
 -- This will state that we want a map with a width of 52 and a height of 16
 #MAP 52 16
 ####################          ######################
@@ -58,6 +52,12 @@
 
 #DECLARE_MAP
 #NAME TOWN_HOUSE_LEFT
+
+-- Tell the parser this is the games starting area, and this is where the player should start
+#GAME_START 19 2
+
+-- Instructions to give the user when they start the game
+#GAME_INSTRUCTIONS Make it to the end and defeat the boss!
 
 #MAP 25 8
 #########################
@@ -162,7 +162,7 @@
 ############################     ########
 
 #MAP_EVENT TELEPORT 28 17 32 17 8 1 ROUTE_1
-#MAP_EVENT TELEPORT 16 1 20 1 17 16 BOSS_ROOM
+#MAP_EVENT TELEPORT 15 0 19 0 17 15 BOSS_ROOM
 
 #MAP_COLLISIONS #
 #END_DECLARE
@@ -195,7 +195,8 @@
 #############       ##############
 #############       ##############
 
-#MAP_EVENT TELEPORT 14 17 20 17 30 1 ROUTE_1
+#MAP_EVENT TELEPORT 13 16 19 16 17 1 ROUTE_2
+#MAP_EVENT BOSS 0 12 40 12 ASUUTA
 
 #MAP_COLLISIONS #
 #END_DECLARE

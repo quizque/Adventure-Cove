@@ -24,6 +24,7 @@ public class GameManager {
     
     public void startGame() throws IOException
     {
+        displayGame();
         while (player.getHP() > 0)
         {
             char input = getInput();
@@ -78,7 +79,22 @@ public class GameManager {
             }
         
         if (currentMap.getCharAtPos(player.getPosition()) == 'w' && Math.random() >= 0.925)
+        {
             battleManager.triggerRandomBattle(player);
+            if (player.getHP() < 1)
+            {
+                clearScreen();
+                clearScreen();
+                System.out.println("| You died to an enemy and lost the game!\n\n" +
+                "| Thank you for playing my game, if you want more you can make your own\n" +
+                "| scripts and run them inside the program at the start!\n" +
+                "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
+                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
+                System.in.read();
+                System.in.read();
+                System.exit(0);
+            }
+        }
     }
     
     private void displayInfo()
@@ -112,7 +128,19 @@ public class GameManager {
                         switchMap(event.data[2], new Vector2D(Integer.parseInt(event.data[0]), Integer.parseInt(event.data[1])));
                         break;
                     case "BOSS":
-                        battleManager.triggerBattle(player, "ASUUTA");
+                        System.out.println("TRIG");
+                        Boolean died = battleManager.triggerBattle(player, "ASUUTA");
+                        if (died)
+                        {
+                            clearScreen();
+                            System.out.println("| You died to the boss and lost the game!\n\n" +
+                                                "| Thank you for playing my game, if you want more you can make your own\n" +
+                                                "| scripts and run them inside the program at the start!\n" +
+                                                "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
+                                                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
+                            System.in.read();
+                            System.in.read();
+                        }
                         break;
                 }
         }
