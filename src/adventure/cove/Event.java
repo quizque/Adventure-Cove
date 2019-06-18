@@ -10,10 +10,10 @@ package adventure.cove;
  * @author nickc
  */
 public class Event {
-    String type;
-    Vector2D locationStart;
-    Vector2D locationEnd;
-    String[] data;
+    String type; // What kind of event is it?
+    Vector2D locationStart; // Where does the event trigger?
+    Vector2D locationEnd; // Where dies the event no longer trigger?
+    String[] data; // What data is stored inside the event?
     
     // Constructer for event
     Event (String type_, Vector2D locationStart_, Vector2D locationEnd_, String[] data_)

@@ -7,7 +7,7 @@ package adventure.cove;
 
 /**
  *
- * @author user
+ * @author nickc
  */
 public class Player {
     private Vector2D position = new Vector2D(1, 1);

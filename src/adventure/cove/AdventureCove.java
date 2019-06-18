@@ -15,6 +15,9 @@ public class AdventureCove {
         // Make a new script handler
         AdventureScript script = new AdventureScript();
         
+        //
+        // PRINT INFO SECTION
+        //
         System.out.println(" ---------------------------\n" +
                            "| WELCOME TO ADVENTURE COVE |\n" +
                            " ---------------------------\n" +
@@ -54,10 +57,14 @@ public class AdventureCove {
                            " and try to make your own!\n" +
                            " Press enter to continue...");
         System.in.read();
+        //
+        // END PRINT INFO SECTION
+        //
         
         // Parse internal script
         GameManager manager = script.parseScript("Adventure1.ads");
         
+        // Start the game!
         manager.startGame();
         
     }

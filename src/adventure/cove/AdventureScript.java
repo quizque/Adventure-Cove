@@ -158,8 +158,9 @@ public class AdventureScript {
                             // Switch case the TYPE of event
                             switch (args[1])
                             {
+                                // If it is a boss event
                                 case "BOSS":
-                                    System.out.println("Boss battle: " + args[6]);
+                                    // Store the boss name into the data
                                     String[] data2 = {args[6]};
                                     tempEvent[tempEvent.length - maxEvents] = new Event("BOSS", new Vector2D(Integer.parseInt(args[2]), Integer.parseInt(args[3])), new Vector2D(Integer.parseInt(args[4]), Integer.parseInt(args[5])), data2);
                                     break;
@@ -176,6 +177,7 @@ public class AdventureScript {
                                     String[] data = new String[newlines];
                                     newlines = 0;
                                     
+                                    // Build string data
                                     data[0] = args[6] + " ";
                                     for (int i = 7; i != args.length; i++)
                                         if (args[i].charAt(args[i].length()-1) == 'n' && args[i].charAt(args[i].length()-2) == '\\') 
@@ -198,6 +200,7 @@ public class AdventureScript {
                                 case "TELEPORT":
                                     String[] data_teleport = new String[3];
                                     
+                                    // Teleport location and MAP name
                                     data_teleport[0] = args[6];
                                     data_teleport[1] = args[7];
                                     data_teleport[2] = args[8];
@@ -227,16 +230,20 @@ public class AdventureScript {
                     }
                 }
                 
+                // If the map is a starting map, set it as a starting map
                 if (startingMap)
                     manager.currentMap = parsedMap;
                 
+                // Count the valid events
                 int c = 0;
                 for (int i = 0; i != tempEvent.length; i++)
                     if (tempEvent[i] != null)
                         c++;
                 
+                // Make a new event list of that length
                 parsedMap.events = new Event[c];
                 
+                // Add the events
                 c = 0;
                 for (int i = 0; i != tempEvent.length; i++)
                     if (tempEvent[i] != null)
@@ -245,6 +252,7 @@ public class AdventureScript {
                         c++;
                     }
                 
+                // Add the map to the maps array
                 manager.maps[totalMaps-totalMaps_copy] = parsedMap;
                 totalMaps++;
                     
@@ -257,24 +265,29 @@ public class AdventureScript {
             
             
             
-            
+            // Are we declaring an enemy?
             if ("#DECLARE_ENEMY".equals(line))
             {
+                // Are we still parsing it?
                 Boolean parsingEnemy = true;
                 
+                // Store the enemy data somewhere
                 Enemy tempEnemy = new Enemy();
                 
+                // While we are parsing the enemy data...
                 while (parsingEnemy)
                 {
+                    // Read a line in
                     line = script.readLine();
                     
+                    // Skip whitespace
                     if ("".equals(line.trim()))
                         continue;
                     
-                    // If we reach the end of a map tag...
+                    // If we reach the end of a declare tag...
                     if ("#END_DECLARE".equals(line))
                     {
-                        // set parsingMap to false
+                        // set parsingEnemy to false
                         parsingEnemy = false;
                         debugPrint("END DECLARE");
                         // and escape the while loop
@@ -286,25 +299,30 @@ public class AdventureScript {
                     
                     switch (args[0])
                     {
+                        // Whats the name of the enemy?
                         case "#NAME":
                             tempEnemy.enemyName = args[1].toUpperCase();
                             break;
                         
+                        // How much damges can it take?
                         case "#HITPOINTS":
                             tempEnemy.enemyHealth = Integer.parseInt(args[1]);
                             break;
                             
+                        // How much damage can it do?
                         case "#DAMAGE_MAX":
                             tempEnemy.enemyDamage = Integer.parseInt(args[1]);
                             break;
                             
+                        // Is it a random spawn (grass spawn)
                         case "#RANDOM_SPAWN":
                             tempEnemy.randomSpawn = true;
                             break;
                             
+                        // Is it the enemy display?
                         case "#DISPLAY":
                             
-                            // Set the width and height of the display map (the acctual map)
+                            // Set the width and height of the display enemy (the acctual enemy)
                             int width = Integer.parseInt(args[1]);
                             int height = Integer.parseInt(args[2]);
                             
@@ -313,13 +331,13 @@ public class AdventureScript {
                             tempEnemy.display_x = width;
                             tempEnemy.display_y = height;
                             
-                            // declare the display map with width and height
+                            // declare the display enemy with width and height
                             tempEnemy.displayEnemy = new char[width][height];
                             
                             // read a line
                             line = script.readLine();
                             
-                            // and loop through the map
+                            // and loop through the enemy
                             for (int y = 0; y != height; y++)
                             {
                                 for (int x = 0; x != width; x++)
@@ -338,6 +356,7 @@ public class AdventureScript {
                 
                 debugPrint("ENEMY --- HP." + tempEnemy.enemyHealth + " DMG." + tempEnemy.enemyDamage + " NAME." + tempEnemy.enemyName);
                 
+                // Append the enemy to the enemy array
                 manager.battleManager.enemys[totalEnemys-totalEnemys_copy] = tempEnemy;
                 totalEnemys++;
             }

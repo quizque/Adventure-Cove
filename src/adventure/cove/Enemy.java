@@ -21,11 +21,13 @@ public class Enemy {
     
     public int enemyHealth_old;
     
+    // Store the hp to restore it later
     public void store()
     {
         enemyHealth_old = enemyHealth;
     }
     
+    // Restore the hp so it can crush mo bones
     public void restore()
     {
         enemyHealth = enemyHealth_old;

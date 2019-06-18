@@ -15,33 +15,44 @@ import java.util.Scanner;
 public class BattleManager {
     Enemy[] enemys;
     
+    // GPOG, also known as "Get the Player out Of the Grass" function
     public void triggerRandomBattle(Player ply) throws IOException
     {
+        // SPIN THE WHEEL OF DOOM AND PICK AN ENEMY
         Enemy battleEnemy = enemys[(int)(Math.random() * enemys.length)];
-        while (!battleEnemy.randomSpawn || battleEnemy == null)
-            battleEnemy = enemys[(int)(Math.random() * enemys.length)];
+        while (!battleEnemy.randomSpawn || battleEnemy == null) // Did we spin it too hard?
+            battleEnemy = enemys[(int)(Math.random() * enemys.length)]; // We spun it too hard, respin and pick a new enemy
         
+        // Store the HP for later
         battleEnemy.store();
         Scanner sc = new Scanner(System.in);
         
         clearScreen();
+        // Spoke the user with a spooky message
         System.out.println("Oh no! You ran into a " + battleEnemy.enemyName + "...\nType anything and press enter to continue...");
         sc.next();
         
+        // While no one is dead
         while (battleEnemy.enemyHealth > 0 || ply.getHP() > 0)
         {
+            // Whipe the screen
             clearScreen();
+            // Display enemy info
             displayEnemy(battleEnemy);
             displayInfo(battleEnemy);
             
+            // What will the user do in times of doom?
             System.out.print("What do you want to do? ([A]TTACK/[H]EAL/[R]UN) ");
             char action = sc.next().toUpperCase().charAt(0);
             
+            // Did the player die already?
             Boolean quit = processAction(action, battleEnemy, ply, sc);
             
+            // They didn't!
             if (quit)
                 break;
             
+            // They did...
             if (ply.getHP() < 1)
             {
                 System.out.println("| You died to the boss and lost the game!\n\n" +
@@ -55,17 +66,21 @@ public class BattleManager {
             }
         }
         
+        // WAZAA, HORAY
         if (battleEnemy.enemyHealth <= 0)
             System.out.println("You defeated the enemy!\nType anything and press enter to continue...");
         else
             System.out.println("You ran away!\nType anything and press enter to continue...");
         
+        // Restore that HP for more bone crushing
         battleEnemy.restore();
         sc.next();
     }
     
+    // BOSS BATTLE!!!!1!!!!!11!!
     public Boolean triggerBattle(Player ply, String enemyName)
     {
+        // FIND THAT BOSS!!!
         Enemy battleEnemy = enemys[0];
         for (Enemy enm : enemys)
             if (enm.enemyName.equals(enemyName))
@@ -74,6 +89,7 @@ public class BattleManager {
         battleEnemy.store();
         Scanner sc = new Scanner(System.in);
         
+        // MAKE THE USER SCREAM WITH A HORRIFYING MESSAGE
         clearScreen();
         System.out.println("  ____   ____   _____ _____   ____       _______ _______ _      ______ _ \n" +
                            " |  _ \\ / __ \\ / ____/ ____| |  _ \\   /\\|__   __|__   __| |    |  ____| |\n" +
@@ -84,6 +100,8 @@ public class BattleManager {
         System.out.println("You have encoutered the boss! The battle is ON!!!\nPress any key and then enter to continue...");
         sc.next();
         
+        
+        // ITS A ONE WAY TICKET
         while (battleEnemy.enemyHealth > 0 || ply.getHP() > 0)
         {
             clearScreen();
@@ -98,12 +116,14 @@ public class BattleManager {
             if (quit)
                 break;
             
+            // Did the lose?
             if (ply.getHP() < 1)
-                return true;
+                return true; // Thank god they did
         }
         
         clearScreen();
         
+        // They won!?!?
         System.out.println("| You defeated the boss and won the game with " + ply.getHP() + " HP left!!!\n\n" +
                 "| Thank you for playing my game, if you want more you can make your own\n" +
                 "| scripts and run them inside the program at the start!\n" +
@@ -114,6 +134,7 @@ public class BattleManager {
         return false;
     }
     
+    // Trigger damage, heal, run
     private Boolean processAction(char action, Enemy em, Player ply, Scanner sc)
     {
         switch (action)
@@ -152,11 +173,13 @@ public class BattleManager {
         return false;
     }
     
+    // Whipe the screen clean
     private void clearScreen()
     {
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     
+    // Display that enemy info
     private void displayInfo(Enemy enm)
     {
         String data = buildEnemyData(enm);
@@ -174,11 +197,14 @@ public class BattleManager {
         System.out.print('\n');
     }
     
+    
+    // Build that simple string data
     private String buildEnemyData(Enemy enm)
     {
         return "HP: " + enm.enemyHealth + "     MAX DMG: " + enm.enemyDamage + "     NAME: " + enm.enemyName;
     }
     
+    // Display the enemy like a map, but just as compelx
     private void displayEnemy(Enemy enm)
     {
         for (int y = 0; y != enm.display_y; y++)
