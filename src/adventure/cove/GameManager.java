@@ -106,7 +106,7 @@ public class GameManager {
                 "| Thank you for playing my game, if you want more you can make your own\n" +
                 "| scripts and run them inside the program at the start!\n" +
                 "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
-                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
+                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvrouwerff - Play Tester\n| Drew Purdie - Play Tester\n| Ethan Fedak - Play Tester\n\nPress any key and then enter to exit...");
                 System.in.read();
                 System.in.read();
                 System.exit(0);
@@ -169,7 +169,7 @@ public class GameManager {
                                                 "| Thank you for playing my game, if you want more you can make your own\n" +
                                                 "| scripts and run them inside the program at the start!\n" +
                                                 "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
-                                                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
+                                                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvrouwerff - Play Tester\n| Drew Purdie - Play Tester\n| Ethan Fedak - Play Tester\n\nPress any key and then enter to exit...");
                             System.in.read();
                             System.in.read();
                         }

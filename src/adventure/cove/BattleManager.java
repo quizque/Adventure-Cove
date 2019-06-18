@@ -40,6 +40,7 @@ public class BattleManager {
             // Display enemy info
             displayEnemy(battleEnemy);
             displayInfo(battleEnemy);
+            displayHP(ply);
             
             // What will the user do in times of doom?
             System.out.print("What do you want to do? ([A]TTACK/[H]EAL/[R]UN) ");
@@ -59,7 +60,7 @@ public class BattleManager {
                 "| Thank you for playing my game, if you want more you can make your own\n" +
                 "| scripts and run them inside the program at the start!\n" +
                 "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
-                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
+                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvrouwerff - Play Tester\n| Drew Purdie - Play Tester\n| Ethan Fedak - Play Tester\n\nPress any key and then enter to exit...");
                 System.in.read();
                 System.in.read();
                 System.exit(0);
@@ -107,6 +108,7 @@ public class BattleManager {
             clearScreen();
             displayEnemy(battleEnemy);
             displayInfo(battleEnemy);
+            displayHP(ply);
             
             System.out.print("What do you want to do? ([A]TTACK/[H]EAL/[R]UN) ");
             char action = sc.next().toUpperCase().charAt(0);
@@ -128,10 +130,31 @@ public class BattleManager {
                 "| Thank you for playing my game, if you want more you can make your own\n" +
                 "| scripts and run them inside the program at the start!\n" +
                 "| Checkout the github at https://github.com/nickthegamer5/Adventure-Cove for more details about scripting.\n" +
-                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvervorf - Play Tester\n| Drew Purde - Play Tester\n\nPress any key and then enter to exit...");
+                "\n| CREDITS:\n| Nick Coombe - Devloper\n| Colin Vanvrouwerff - Play Tester\n| Drew Purdie - Play Tester\n| Ethan Fedak - Play Tester\n\nPress any key and then enter to exit...");
         sc.next();
         System.exit(0);
         return false;
+    }
+    
+    // Display HP
+    private void displayHP(Player player)
+    {
+        // Fancy smancy math to get how long a number is
+        System.out.print(' ');
+        for (int i = 0; i != Math.ceil(Math.log10(player.getHP()))+6; i++)
+            System.out.print('-');
+        System.out.print('-');
+        System.out.print('\n');
+        
+        // Output fancy text
+        System.out.print("| HP: " + player.getHP() + " |\n");
+        
+        // Close off fancy text
+        System.out.print(' ');
+        for (int i = 0; i != Math.ceil(Math.log10(player.getHP()))+6; i++)
+            System.out.print('-');
+        System.out.print('-');
+        System.out.print('\n');
     }
     
     // Trigger damage, heal, run
